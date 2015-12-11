@@ -82,7 +82,7 @@ def download_favicon(url, file_prefix='', target_dir='/tmp'):
     # We finally have a URL for our favicon. Get it. 
     response = requests.get(favicon_url, headers=headers)
     if response.status_code == requests.codes.ok:
-        if len(response.content) == 0:
+        if len(response.content) == 0 or response.headers.get('content-type') == 'text/html':
             raise InvalidContentException()
     
         # we want to get the the filename from the url without any params
